@@ -20,13 +20,15 @@ disp = LCD.PCD8544(DC, RST, spi=SPI.SpiDev(SPI_PORT, SPI_DEVICE, max_speed_hz=40
 # Initialize library.
 disp.begin(contrast=60)
 
-# Clear display.
-#disp.clear()
+# Clear display, clearing the display actually clears the buffer 
+# disp.clear()
+
 # display shows default buffer
 disp.display()
 
 time.sleep(3.0)
-#Clear display again
+
+#Clear display buffer and then display
 disp.clear()
 disp.display()
 
@@ -41,10 +43,10 @@ draw = ImageDraw.Draw(image)
 draw.rectangle((0,0,LCD.LCDWIDTH,LCD.LCDHEIGHT), outline=255, fill=255)
 
 # Load font
-font = ImageFont.truetype('fipps.otf', 8)
+font = ImageFont.truetype('ka1.ttf', 10)
 
 # Write some text.
-draw.text((4,4), 'Te Quiero <3', font=font)
+draw.text((4,4), 'Hello World!', font=font)
 
 # Display image.
 disp.image(image)
@@ -52,4 +54,22 @@ disp.display()
 
 print 'Press Ctrl-C to quit.'
 while True:
+	s=[]
+	print 'Enter the text you wish to show on Nokia PCD.'
+	# A for loop for 4 lines of input each in one space of the "s" array 
+	for i in range(4):
+		s.append(raw_input('Line '+str(i)+': ')) 
+ 
+	# Draw a white filled box to clear the image.
+	draw.rectangle((0,0,LCD.LCDWIDTH,LCD.LCDHEIGHT), outline=255, fill=255)
+	# Clearing screen before writing new string
+	disp.clear()
+	disp.display()
+	# String to image using font
+	for i in range(4):
+		draw.text((2,2+11*i), s[i], font=font)
+
+	disp.image(image)
+	# displaying image
+	disp.display() 
 	time.sleep(1.0)

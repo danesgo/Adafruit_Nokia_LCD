@@ -21,9 +21,10 @@ disp = LCD.PCD8544(DC, RST, spi=SPI.SpiDev(SPI_PORT, SPI_DEVICE, max_speed_hz=40
 disp.begin(contrast=60)
 
 # Clear display.
-#disp.clear()
+di
 disp.display()
 
 print 'Press Ctrl-C to quit.'
 while True:
 	time.sleep(1.0)
+
